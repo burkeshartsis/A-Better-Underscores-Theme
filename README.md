@@ -1,27 +1,32 @@
-_s
+A Better Underscores Theme
 ===
 
-Hi. I'm a starter theme called `_s`, or `underscores`, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
+Hi. I'm a starter theme based off of `_s` or `underscores`, if you like. I come with some modern best practices and loads of opinions others didn't want to force on you added to make life better.
 
-My ultra-minimal CSS might make me look like theme tartare but that means less stuff to get in your way when you're designing your awesome theme. Here are some of the other more interesting things you'll find here:
+Here are some of the interesting things I come with:
 
-* A just right amount of lean, well-commented, modern, HTML5 templates.
-* A helpful 404 template.
-* A sample custom header implementation in `inc/custom-header.php` that can be activated by uncommenting one line in functions.php and adding the code snippet found the comments of `inc/custom-header.php` to your `header.php` template.
-* Custom template tags in `inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
-* Some small tweaks in `inc/extras.php` that can improve your theming experience.
-* Keyboard navigation for image attachment templates. The script can be found in `js/keyboard-image-navigation.js`. It's enqueued in `functions.php`.
-* A script at `js/navigation.js` that makes your menu a toggled dropdown on small screens (like your phone), ready for CSS artistry. It's enqueued in `functions.php`.
-* 2 sample CSS layouts in `layouts` for a sidebar on either side of your content.
-* Smartly organized starter CSS in `style.css` that will help you to quickly get your design off the ground.
-* Licensed under GPLv2 or later. :) Use it to make something cool.
+- A just right amount of lean, well-commented, modern, HTML5 templates.
+- Symantic SASS partials to get you started
+- Bower setup to handle frontend components (read: all that great sass/css and js you love to use but did not write eg: jQuery, etc.).
+	* predefined depencies
+	* bower install drops into `components`
+- Bundlr setup to keep your themes ruby gems in order. Comes with:
+	* [SASS](http://sass-lang.com/) (makes CSS awesome)
+	* [SASS css importer](https://github.com/chriseppstein/sass-css-importer) (plays nice with Bower!)
+	* [Compass](http://compass-style.org/) (makes SASS awesomer)
+	* [SASS Toolkit](https://github.com/Team-Sass/toolkit) (makes Compass awesomer)
+- A helpful 404 template.
+- Custom template tags in `inc/template-tags.php` that keep your templates clean and neat and prevent code duplication.
+- Some small tweaks in already added to your `functions.php` that can improve your theming experience.
+- A script at `js/navigation.js` that makes your menu a toggled dropdown on small screens (like your phone), ready for CSS artistry. It's enqueued in `functions.php`.
+- 2 sample SASS layouts in `sass/_layouts.scss` for a sidebar on either side of your content.
+- Smartly organized starter SASS in `style.scss` that will help you to quickly get your design off the ground.
+- Licensed under GPLv2 or later. :) Use it to make something cool.
 
-Getting Started
----------------
+Theme Setup
+-----------
 
-If you want to keep it simple, head over to http://underscores.me and generate your `_s` based theme from there. You just input the name of the theme you want to create, click the "Generate" button, and you get your ready-to-awesomize starter theme.
-
-If you want to set things up manually, download `_s` from github. The first thing you want to do is copy the `_s` directory and change the name to something else - Like, say, `megatherium` - then you'll need to do a five-step find and replace on the name in all the templates.
+You'll need to do a five-step find and replace on the name in all the templates.
 
 1. Search for `'_s'` (inside single quotations) to capture the text domain.
 2. Search for `_s_` to capture all the function names.
@@ -35,9 +40,20 @@ OR
 * Search for: `_s_` and replace with: `megatherium_`
 * Search for: <code>&nbsp;_s</code> and replace with: <code>&nbsp;Megatherium</code>
 * Search for: `_s-` and replace with: `megatherium-`
-* Search for: `Text Domain: _s` and replace with: `Text Domain: megatherium` in style.css.
+* Search for: `Text Domain: _s` and replace with: `Text Domain: megatherium` in style.scss.
 
-Then, update the stylesheet header in style.css and the links in footer.php with your own information. Next, update or delete this readme.
+Then, update the stylesheet header in style.scss and the links in footer.php with your own information. Next, update or delete this readme.
+
+System Setup
+------------
+
+- From the command line navigate to your future site directory. (on non windows machines it might be something like `cd documents/dev/sites/`).
+- Run `git clone --recursive`.
+- Then navigate to `/content/themes/ywam_thailand_c`.
+- If your machine already has ruby and [Bundlr](http://bundler.io/) installed you can move on to the next step. If your on a Unix based system (that includes Mac's) you already have ruby others will need to find instructions for setting ruby up in their environment. The internet is full of tutorials for every platform so you should be fine. Now just run `gem install bundler`!
+- For most of you your last step will be `bundle install`.
+
+For those of you looking to manage frontend packages you can also install [Node](http://nodejs.org/) and [Bower](http://bower.io/). Given the advanced usage of these tools and the fact the the project does not depend on your usage of them I will leave this up to you to figure out. You can find some additional theme documentation in `/content/themes/ywam_thailand/readme.md`.
 
 Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
 
