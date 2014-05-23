@@ -1,7 +1,7 @@
 A Better Underscores Theme
 ===
 
-Hi. I'm a starter theme based off of `_s` or `underscores`, if you like. I come with some modern best practices and loads of opinions others didn't want to force on you added to make life better.
+Hi. I'm a starter theme based off of `_s`, or `underscores`, if you like. I come with some modern best practices and loads of opinions others didn't want to force on you added to make life better.
 
 Here are some of the interesting things I come with:
 
@@ -47,13 +47,9 @@ Then, update the stylesheet header in style.scss and the links in footer.php wit
 System Setup
 ------------
 
-- From the command line navigate to your future site directory. (on non windows machines it might be something like `cd documents/dev/sites/`).
-- Run `git clone --recursive`.
-- Then navigate to `/content/themes/ywam_thailand_c`.
-- If your machine already has ruby and [Bundlr](http://bundler.io/) installed you can move on to the next step. If your on a Unix based system (that includes Mac's) you already have ruby others will need to find instructions for setting ruby up in their environment. The internet is full of tutorials for every platform so you should be fine. Now just run `gem install bundler`!
-- For most of you your last step will be `bundle install`.
-
-For those of you looking to manage frontend packages you can also install [Node](http://nodejs.org/) and [Bower](http://bower.io/). Given the advanced usage of these tools and the fact the the project does not depend on your usage of them I will leave this up to you to figure out. You can find some additional theme documentation in `/content/themes/ywam_thailand/readme.md`.
+- If your machine already has ruby and [Bundlr](http://bundler.io/) installed you can skip to the next step. If and your on a Unix based system (that includes Mac's) you already have ruby others will need to find instructions for setting ruby up in their environment. The internet is full of tutorials for every platform so you should be fine. Once ruby is setup just run `gem install bundler`!
+- Now a simple `bundle install` to get your project gems in order.
+- OPITIONALLY: for those of you looking to manage frontend packages you can also install [Node](http://nodejs.org/) and [Bower](http://bower.io/). Given the nature and usage of these tools and the fact this project does not depend on your usage of them I will leave this up to you to figure out.
 
 Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
 
