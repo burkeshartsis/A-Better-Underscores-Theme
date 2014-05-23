@@ -1,7 +1,7 @@
 A Better Underscores Theme
 ===
 
-Hi. I'm a starter theme based off of `_s`, or `underscores`, if you like. I come with some modern best practices and loads of opinions others didn't want to force on you added to make life better.
+Hi. I'm a starter theme based off of [`_s`](https://github.com/Automattic/_s), or `underscores`, if you like. I come with some modern best practices and loads of opinions others didn't want to force on you added to make life better.
 
 Here are some of the interesting things I come with:
 
@@ -42,7 +42,7 @@ OR
 * Search for: `_s-` and replace with: `megatherium-`
 * Search for: `Text Domain: _s` and replace with: `Text Domain: megatherium` in style.scss.
 
-Then, update the stylesheet header in style.scss and the links in footer.php with your own information. Next, update or delete this readme.
+Then, update the stylesheet header in style.scss, recompile your sass, and change the links in footer.php with your own information. Lastly, update or delete this readme.
 
 System Setup
 ------------
