@@ -3,9 +3,7 @@
  * The template for displaying Comments.
  *
  * The area of the page that contains both current comments
- * and the comment form. The actual display of comments is
- * handled by a callback to _s_comment() which is
- * located in the inc/template-tags.php file.
+ * and the comment form.
  *
  * @package _s
  */
@@ -15,11 +13,12 @@
  * the visitor has not yet entered the password we will
  * return early without loading the comments.
  */
-if ( post_password_required() )
+if ( post_password_required() ) {
 	return;
+}
 ?>
 
-	<div id="comments" class="comments-area">
+<div id="comments" class="comments-area">
 
 	<?php // You can start editing here -- including this comment! ?>
 
@@ -41,13 +40,10 @@ if ( post_password_required() )
 
 		<ol class="comment-list">
 			<?php
-				/* Loop through and list the comments. Tell wp_list_comments()
-				 * to use _s_comment() to format the comments.
-				 * If you want to override this in a child theme, then you can
-				 * define _s_comment() and that will be used instead.
-				 * See _s_comment() in inc/template-tags.php for more.
-				 */
-				wp_list_comments( array( 'callback' => '_s_comment' ) );
+				wp_list_comments( array(
+					'style'      => 'ol',
+					'short_ping' => true,
+				) );
 			?>
 		</ol><!-- .comment-list -->
 
