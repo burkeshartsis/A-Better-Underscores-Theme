@@ -1,15 +1,16 @@
 <?php
 /**
- * c functions and definitions
+ * _s functions and definitions.
  *
- * @package c
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package _s
  */
 
-// Set the content width based on the theme's design and stylesheet.
-if ( ! isset( $content_width ) ) {
-	$content_width = 640; /* pixels */
-}
+add_action( 'after_setup_theme', '_s_setup' );
+add_action( 'after_setup_theme', '_s_content_width', 0 );
 
+if ( ! function_exists( '_s_setup' ) ) :
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -17,40 +18,75 @@ if ( ! isset( $content_width ) ) {
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
-add_action( 'after_setup_theme', 'c_setup' );
+function _s_setup() {
+	/*
+	 * Make theme available for translation.
+	 * Translations can be filed in the /languages/ directory.
+	 * If you're building a theme based on _s, use a find and replace
+	 * to change '_s' to the name of your theme in all the template files.
+	 */
+	// load_theme_textdomain( '_s', get_template_directory() . '/languages' );
 
-if ( ! function_exists( 'c_setup' ) ) {
-	function c_setup() {
-		// Translations can be filed in the /languages/ directory.
-		// load_theme_textdomain( 'c', get_template_directory() . '/languages' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'html5', array(
-			'comment-list',
-			'search-form',
-			'comment-form',
-			'gallery',
-			'caption',
-		) );
+	// Add default posts and comments RSS feed links to head.
+	// add_theme_support( 'automatic-feed-links' );
 
-		add_action( 'init', 'c_register_menus' );
-		add_action( 'init', 'c_clean_up' );
-		
-		add_action( 'wp_enqueue_scripts', 'c_adjust_queue', 0 );
-		add_action( 'widgets_init', 'c_widgets_init' );
+	/*
+	 * Let WordPress manage the document title.
+	 * By adding theme support, we declare that this theme does not use a
+	 * hard-coded <title> tag in the document head, and expect WordPress to
+	 * provide it for us.
+	 */
+	add_theme_support( 'title-tag' );
 
-		add_filter( 'wp_page_menu_args', 'c_page_menu_args' );
-		add_filter( 'wp_title', 'c_wp_title', 10, 2 );
-		add_filter( 'show_admin_bar', '__return_false' );
-	}
+	/*
+	 * Enable support for Post Thumbnails on posts and pages.
+	 *
+	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+	 */
+	add_theme_support( 'post-thumbnails' );
+
+	// This theme uses wp_nav_menu().
+	add_action( 'init', '_s_register_menus' );
+
+	/*
+	 * Switch default core markup for search form, comment form, and comments
+	 * to output valid HTML5.
+	 */
+	add_theme_support( 'html5', array(
+		'search-form',
+		'comment-form',
+		'comment-list',
+		'gallery',
+		'caption',
+	) );
+
+
+	add_action( 'init', '_s_clean_up' );
+	add_action( 'wp_enqueue_scripts', '_s_scripts' );
+	add_action( 'widgets_init', '_s_widgets_init' );
+
+	add_filter( 'show_admin_bar', '__return_false' );
+}
+endif;
+
+/**
+ * Set the content width in pixels, based on the theme's design and stylesheet.
+ *
+ * Priority 0 to make it available to lower priority callbacks.
+ *
+ * @global int $content_width
+ */
+function _s_content_width() {
+	$GLOBALS['content_width'] = apply_filters( '_s_content_width', 640 );
 }
 
-function bnl_register_menus() {
+function _s_register_menus() {
 	register_nav_menus( array(
-		'primary' => __( 'Primary Menu', 'c' ),
+		'primary' => esc_html__( 'Primary', '_s' ),
 	) );
 }
 
-function c_clean_up() {
+function _s_clean_up() {
 	if( is_front_page() || is_home() ) {
 		remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 		remove_action( 'wp_head', 'start_post_rel_link' );
@@ -64,111 +100,45 @@ function c_clean_up() {
 	remove_action( 'wp_head', 'feed_links_extra', 3 );
 }
 
-
 /**
  * Register widget area.
  *
- * @link http://codex.wordpress.org/Function_Reference/register_sidebar
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function c_widgets_init() {
+function _s_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'c' ),
+		'name'          => esc_html__( 'Sidebar', '_s' ),
 		'id'            => 'sidebar-1',
 		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
-		'after_title'   => '</h1>',
+		'before_widget' => '<section id="%1$s" class="widget %2$s">',
+		'after_widget'  => '</section>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
 	) );
 }
 
 /**
  * Enqueue scripts and styles.
  */
-function c_adjust_queue() {
-	if ( ! is_admin() ) {
-		wp_enqueue_style( 'c-style', get_stylesheet_directory_uri().'/style.css' );
-		wp_deregister_script( 'jquery' );
+function _s_scripts() {
+	wp_enqueue_style( '_s-style', get_stylesheet_uri() );
 
-		// wp_enqueue_script( 'webfont', 'http://ajax.googleapis.com/ajax/libs/webfont/1.5.3/webfont.js', array(), '', false );
-		wp_enqueue_script( 'modernizr', get_stylesheet_directory_uri() . '/components/modernizr/modernizr.js', array(), '', false );
-		$jquery_url = check_jquery();
-		wp_enqueue_script( 'jquery', $jquery_url, array(), '1.11.1', true );
-		wp_enqueue_script( 'c-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
-		wp_enqueue_script( 'c-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	// wp_enqueue_script( '_s_webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.22/webfont.js', array(), '', false );
+	wp_enqueue_script( '_s-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( '_s-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
-		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-			wp_enqueue_script( 'comment-reply' );
-		}
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
 	}
 }
 
-function check_jquery() {
-	$cache = get_transient( 'is_google_alive' );
-	$google_jquery = '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js';
-	$wp_jquery = get_stylesheet_directory_uri() . '/components/jquery/dist/jquery.min.js';
-
-	if( $cache === false ) {
-		$ping = wp_remote_head( 'http:' . $google_jquery );
-
-		if( !is_wp_error( $ping ) && 200 == $ping[ 'response' ][ 'code' ] ) {
-			set_transient( 'is_google_alive', true, 60 * 5 );
-			
-			return $google_jquery;
-		} else {
-			set_transient( 'is_google_alive', false, 60 * 5 );
-
-			return $wp_jquery;
-		}
-	} else {
-		return $google_jquery;
-	}
-}
-
-/**
- * Get our wp_nav_menu() fallback, wp_page_menu(), to show a home link.
- *
- * @param array $args Configuration arguments.
- * @return array
- */
-function c_page_menu_args( $args ) {
-	$args['show_home'] = true;
-	
-	return $args;
-}
-
-/**
- * Filters wp_title to print a neat <title> tag based on what is being viewed.
- *
- * @param string $title Default title text for current view.
- * @param string $sep Optional separator.
- * @return string The filtered title.
- */
-function c_wp_title( $title, $sep ) {
-	if ( is_feed() ) {
-		return $title;
-	}
-
-	global $page, $paged;
-
-	// Add the blog name
-	$title .= get_bloginfo( 'name', 'display' );
-
-	// Add the blog description for the home/front page.
-	$site_description = get_bloginfo( 'description', 'display' );
-	if ( $site_description && ( is_home() || is_front_page() ) ) {
-		$title .= " $sep $site_description";
-	}
-
-	// Add a page number if necessary:
-	if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() ) {
-		$title .= " $sep " . sprintf( __( 'Page %s', 'c' ), max( $paged, $page ) );
-	}
-
-	return $title;
-}
 
 /**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/template-tags.php';
+
+/**
+ * Custom functions that act independently of the theme templates.
+ */
+require get_template_directory() . '/inc/extras.php';

@@ -1,10 +1,12 @@
 # As Yeoman assumes the usage of Bower and Grunt, ignore the below:
-bower_components
-node_modules
+bower_components/
+node_modules/
 
 # Ignore automatically generated cruft
 *.log
 .sass-cache
+*.js.map
+*.css.map
 
 # Ignore config
 local-config.php
@@ -39,3 +41,6 @@ content/themes/index.php
 content/uploads/
 content/upgrade/
 content/wp-cache-config.php
+
+# Compiled Code
+bundle.js
